@@ -1,0 +1,73 @@
+---------------------------------------------------------------------------
+
+by sstok at 2015-02-17 12:21
+
+We hit a :bug: :warning: Its small one (missing space between NOT and LIKE), but this proofs why functional tests are needed.
+
+```
+Exception: [Doctrine\DBAL\Exception\SyntaxErrorException] An exception occurred while executing 'SELECT i.*, c.* FROM invoice AS i JOIN customer AS c ON (c.id = i.customer) WHERE (((c.name LIKE :customer_name_0 ESCAPE '\\' OR c.name LIKE :customer_name_1 ESCAPE '\\' OR c.name ~ :customer_name_2 OR c.name ~* :customer_name_3) AND (c.name NOTILIKE :customer_name_4 ESCAPE '\\')))' with params ["foo", "fo\\'o", "(foo|bar)", "(doctor|who)", "bar"]:
+```
+
+---------------------------------------------------------------------------
+
+by sstok at 2015-02-18 14:43
+
+OK, I'm getting a bit irritated here by the fact that no almost database vendor honors the so-called official standard! :angry: :boom:
+
+MySQL doesn't allow to cast a value to INTEGER, because thats is called SIGNED [INTEGER].
+SQLite does not automatically casts an quoted an integer to a real integer, so `u.age = 18` and `u.age = '18'` are not the same. Even when age is an INTEGER ITS NOT CASTED! WHAT THE HELL IS WRONG WITH THESE DEVELOPERS?! I need to add at least 5 checks to get this to work.
+
+---------------------------------------------------------------------------
+
+by cordoval at 2015-02-18 14:46
+
+oh no sorry! :older_man:
+
+---------------------------------------------------------------------------
+
+by sstok at 2015-02-18 15:27
+
+I'm doing so rewriting to fix this and reduce the complexity.
+
+---------------------------------------------------------------------------
+
+by sstok at 2015-02-19 10:55
+
+Hmm, the parameter binding is causing trouble #6 and I actually can't see why we would need this.
+Using parameters is only recommended when you want to reuse the query with different values, but the SearchCondition where-clause never changes a single value, and even then the whole query needs to be re-evaluated so I think its better to always embed the values.
+
+---------------------------------------------------------------------------
+
+by sstok at 2015-02-19 18:27
+
+https://scrutinizer-ci.com/g/rollerworks/rollerworks-search-doctrine-dbal/inspections/f1ced7e0-72b4-43d1-81c4-7d1836e4fb50 Wow :+1: now thats what I call improvement :smile:
+
+---------------------------------------------------------------------------
+
+by sstok at 2015-02-20 15:45
+
+https://scrutinizer-ci.com/g/rollerworks/rollerworks-search-doctrine-dbal/inspections/418a0150-1bd1-4be4-94bf-9418e7796768 - score 8.46 This is amazing :scream: :satisfied: 2.4 quality increase and no more critical issues :+1:
+
+---------------------------------------------------------------------------
+
+by cordoval at 2015-02-20 15:47
+
+nice. Try more SOLID and it will keep going up
+
+---------------------------------------------------------------------------
+
+by sstok at 2015-02-24 13:46
+
+:sweat_smile: whoops I need to merge a PR in the core package before the tests can work.
+
+---------------------------------------------------------------------------
+
+by sstok at 2015-02-24 14:40
+
+Depends on https://github.com/rollerworks/RollerworksSearch/pull/60
+
+---------------------------------------------------------------------------
+
+by scrutinizer-notifier at 2015-02-24 15:48
+
+The [inspection](https://scrutinizer-ci.com/g/rollerworks/rollerworks-search-doctrine-dbal/inspections/bdf34411-9718-4e44-a8a5-22bd2a07ed8c) completed: **20 updated code elements**
