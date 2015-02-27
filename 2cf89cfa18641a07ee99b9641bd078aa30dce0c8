@@ -1,0 +1,18 @@
+---------------------------------------------------------------------------
+
+by scrutinizer-notifier at 2015-02-27 15:48
+
+The [inspection](https://scrutinizer-ci.com/g/rollerworks/rollerworks-search-doctrine-dbal/inspections/796f3b97-696b-432c-86f5-0a746813eb53) completed: **1 new issues**
+
+---------------------------------------------------------------------------
+
+by cordoval at 2015-02-27 15:51
+
+:+1: congratulations on the refactor!
+
+---------------------------------------------------------------------------
+
+by sstok at 2015-02-27 15:53
+
+To bad I missed these two bugs :cry: good thing scrutinizer found them.
+I need cover these with tests to prevent future breakage.
