@@ -1,0 +1,14 @@
+---------------------------------------------------------------------------
+
+by scrutinizer-notifier at 2015-02-28 09:55
+
+The [inspection](https://scrutinizer-ci.com/g/rollerworks/rollerworks-search-doctrine-dbal/inspections/5d2a5d92-f5b1-484a-81ab-f3719d54cfa7) completed: **1 updated code elements**
+
+---------------------------------------------------------------------------
+
+by sstok at 2015-02-28 10:00
+
+D 	↗ 	B 	AgeDateConversion::convertSqlField() improved
+▲   + 0.12
+
+![closeenough](https://cloud.githubusercontent.com/assets/904790/6425734/e3a101c8-bf38-11e4-9661-5129ba3c4868.png)
