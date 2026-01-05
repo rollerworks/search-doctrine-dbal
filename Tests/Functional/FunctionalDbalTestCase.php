@@ -291,11 +291,11 @@ abstract class FunctionalDbalTestCase extends DbalTestCase
         $qb->executeQuery();
     }
 
-    protected function onNotSuccessfulTest(\Throwable $e): void
+    protected function onNotSuccessfulTest(\Throwable $t): never
     {
         // Ignore deprecation warnings.
-        if ($e instanceof AssertionFailedError || ($e instanceof Warning && mb_strpos($e->getMessage(), ' is deprecated,'))) {
-            throw $e;
+        if ($t instanceof AssertionFailedError) {
+            throw $t;
         }
 
         $i = \count(self::$sharedConn->queryLog->queries ?? []);
@@ -319,7 +319,7 @@ abstract class FunctionalDbalTestCase extends DbalTestCase
                 --$i;
             }
 
-            $trace = $e->getTrace();
+            $trace = $t->getTrace();
             $traceMsg = '';
 
             foreach ($trace as $part) {
@@ -334,17 +334,17 @@ abstract class FunctionalDbalTestCase extends DbalTestCase
             }
 
             $message =
-                '[' . $e::class . '] ' .
-                $e->getMessage() .
+                '[' . $t::class . '] ' .
+                $t->getMessage() .
                 \PHP_EOL . \PHP_EOL .
                 'With queries:' . \PHP_EOL .
                 $queries . \PHP_EOL .
                 'Trace:' . \PHP_EOL .
                 $traceMsg;
 
-            throw new Exception($message, (int) $e->getCode(), $e);
+            throw new Exception($message, (int) $t->getCode(), $t);
         }
 
-        throw $e;
+        throw $t;
     }
 }
